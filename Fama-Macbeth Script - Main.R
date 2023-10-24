@@ -34,3 +34,5 @@ full_data <- crsp_query |>
   ) |> 
   filter(primexch == 'N')|>
   filter(shrcd == 10)
+
+
