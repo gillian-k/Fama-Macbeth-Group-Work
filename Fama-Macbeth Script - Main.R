@@ -254,3 +254,286 @@ beta_ie_period2 <-beta_ie_period2 |>
 ###############################################
 
 
+#start by merging stock return data with estimated betas, and portfolio placement
+returns_period2<-crsp_ie_period2|>
+  select(permno, date, ret, mkt)|>
+  mutate(beta_year=(year(date))-1)
+
+
+
+
+
+stock_betas_period2 <- beta_ie_period2 |> #merge between estimation betas and portfolio placement
+  inner_join((beta_pf_period2|>
+                select(permno, port)), 
+             by = c('permno'),keep=FALSE)|>
+  mutate(beta_year=(year(date)))|>
+  select(-date)
+
+
+
+
+
+stock_data_period2<-returns_period2|>
+  inner_join(stock_betas_period2, by =c('permno', 'beta_year'))|>
+  mutate(beta_sq=beta^2) #page 616 - squared values of beta at stock level
+
+
+
+
+
+count2<- stock_data_period2 %>% group_by(permno) %>%  #no of securities meeting data requirement for portfolio formation and initial estimation period
+  summarise(total_count=n(),
+            .groups = 'drop')
+
+
+
+#Create portfolio dataframe with average returns, average betas, average standard deviation of residuals
+
+
+
+port_data_period2 <- stock_data_period2 |> 
+  group_by(date, port)|>
+  summarise(across(
+    .cols = c(ret, mkt, beta, beta_sq, sdres),
+    .fns = list(Port_Mean = mean, Port_Sd=sd), na.rm = TRUE, 
+    .names = "{col}_{fn}"))|>
+  ungroup()
+
+
+
+
+
+#For the regression we need three things:
+##---->the portfolio beta (average of stock betas)
+##---->the square portfolio beta - average of squared stock betas
+##---->the \bar(sp_t-1(eps_i)) which is the portfolio average of 'sdres' measured at stock level
+
+#SECTION E: CONSTRUCT TABLE 2
+
+
+
+table2_part_a <- port_data_period2|>
+  group_by(port) |>
+  summarise(beta_p=mean(beta_Port_Mean),sp_t=mean(sdres_Port_Mean),srp=sd(ret_Port_Mean), sdmkt=sd(mkt_Port_Mean))
+
+
+
+#Create beta estimation function for portfolios
+
+
+
+estimate_capm_port <- function(data, min_obs) {
+  if (nrow(data) < min_obs) {
+    se_p <- as.numeric(NA)
+  } else {
+    fit <- lm(ret_Port_Mean~mkt_Port_Mean, data = data)
+    rsquare <- summary(fit)$r.squared
+    se_p <- as.numeric(sd(residuals(fit), na.rm=TRUE))
+  }
+  return(tibble(
+    se_p,
+    rsquare))
+}
+
+
+
+
+
+table2_part_b <- port_data_period2 |>
+  mutate(month= floor_date(date, "month"))|>
+  group_by(port)|>
+  mutate(res_ie=estimate_capm_port(pick(everything()),min_obs = 48))|>##picks everything from last pipe and uses that as the dataset
+  ungroup()|>
+  select(port, res_ie)|>
+  drop_na()|>
+  group_by(port)|>
+  unique()
+
+
+
+table2_part_b <- bind_cols(table2_part_b[1], reduce(table2_part_b[-1], data.frame))
+
+
+
+table2 <- table2_part_a|>
+  inner_join(
+    table2_part_b, 
+    by = c('port'), keep=FALSE)|>
+  mutate(se_beta=se_p/(sqrt(48)*sdmkt),ratio=se_p/sp_t)|>
+  t()
+
+
+
+colnames(table2) <- as.character(table2[1, ])
+table2 <- table2[-1,]
+
+
+#SECTION F: CONSTRUCT TABLE 3
+
+
+
+#THIS IS THE STACKED DATASET WITH ALL PORTFOLIO DATA
+stacked_data <- read_csv("stacked_data_cross_sectional_regression.csv")
+
+
+
+
+
+#Create LAMBDA estimation function (FULL MODEL) - risk premium is called lambda
+estimate_lambdas <- function(data, min_obs) {
+  if (nrow(data) < min_obs) {
+    lambda0 <- as.numeric(NA)
+    lambda1 <- as.numeric(NA)
+    lambda2 <- as.numeric(NA)
+    lambda3 <- as.numeric(NA)
+    r_square <- as.numeric(NA)
+  } else {
+    fit <- lm(ret_Port_Mean~beta_Port_Mean+beta_sq_Port_Mean+sdres_Port_Mean, data = data)
+    lambda0 <- as.numeric(coefficients(fit)[1])
+    lambda1 <- as.numeric(coefficients(fit)[2])
+    lambda2 <- as.numeric(coefficients(fit)[3])
+    lambda3 <- as.numeric(coefficients(fit)[4])
+    rsquare <- summary(fit)$r.squared
+  }
+  return(tibble(
+    lambda0,
+    lambda1,
+    lambda2,
+    lambda3,
+    rsquare))
+}
+
+
+
+lambdas <- stacked_data |>
+  group_by(date) |>
+  mutate(model=estimate_lambdas(pick(everything()), min_obs=0)) |>##picks everything from last pipe and uses that as the dataset
+  ungroup() |>
+  select(date, subperiodlarge, subperiodsmall, model) |>
+  drop_na()|>
+  unique()
+
+
+
+lambdas <- bind_cols(lambdas[1], reduce(lambdas[-1], data.frame))
+lambdas$date <- as.Date(lambdas$date, "%d/%m/%Y")
+lambdas$year_month<-format(lambdas$date, "%Y-%m")
+
+
+
+#OUTPUT IS DATAFRAME CALLED LAMBDAS
+
+
+
+#COMBINE RISK FREE RATE DATA WITH THE LAMBDAS
+lambdas_with_rf <- lambdas |> 
+  left_join(
+    risk_free, 
+    by = c('year_month'), keep=FALSE)|>
+  mutate(lambda0rf=lambda0-rf) #This is lambda_0 minus the risk free rate, as seen in Table 3 of paper
+
+
+
+
+
+#SECION F2 - TABLE 3 SUMMARIES
+
+
+
+#SUMMARY 1A - AVERAGE AND STANDARD DEVIATION OF LAMBDAS
+summary1A<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))
+
+
+
+#SUMMARY 1B - LONG RANGE WINDOWS - AVERAGE AND STANDARD DEVIATION OF LAMBDAS
+summary1B<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))
+
+
+
+#SUMMARY 1C - SHORTER RANGE WINDOWS - AVERAGE AND STANDARD DEVIATION OF LAMBDAS
+summary1C<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))
+
+
+
+#DESIGN FUNCTION FOR CALCULATING T-STATS ON LAMBDAS AND FIRST ORDER AUTO-CORRELATION OF LAMBDAS
+#REPEAT STATISTICS ESTIMATION AS DONE ABOVE
+tstat <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- mean(x)
+  sd <- sd(x)
+  tstat<-mean(x)/(sd(x)/sqrt(n()))
+}
+
+
+
+corr <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- 0
+  cor(x-mean, lag(x)-mean, use = "na.or.complete")
+}
+
+
+
+#OBTAIN T-STATISTICS
+#FULL WINDOW
+summary2A<-lambdas_with_rf |>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3), 
+    .fns = list(tstat=tstat),  
+    .names = "{col}_{fn}"))
+
+
+
+#LONG RANGE WINDOWS
+summary2B<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3), 
+    .fns = list(tstat=tstat),  
+    .names = "{col}_{fn}"))
+
+
+
+#SHORTER RANGE WINDOWS 
+summary2C<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3), 
+    .fns = list(tstat=tstat),  
+    .names = "{col}_{fn}"))
+
+
+
+#OBTAIN FIRST ORDER AUTOCORRELATION
+summary3A<-lambdas_with_rf |>
+  summarise(across(
+    .cols = c(lambda1, lambda2, lambda3), 
+    .fns = list(corr=corr),  
+    .names = "{col}_{fn}"))
+
+
+
+
+
+###############################################
+
