@@ -367,6 +367,7 @@ table2 <- table2_part_a|>
 
 colnames(table2) <- as.character(table2[1, ])
 table2 <- table2[-1,]
+<<<<<<< HEAD
 
 
 #SECTION F: CONSTRUCT TABLE 3
@@ -537,3 +538,5 @@ summary3A<-lambdas_with_rf |>
 
 ###############################################
 
+=======
+>>>>>>> a6d25d82e67b6da9fbdf3b035c07da258b8722c5
