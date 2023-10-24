@@ -310,3 +310,64 @@ port_data_period2 <- stock_data_period2 |>
 ##---->the portfolio beta (average of stock betas)
 ##---->the square portfolio beta - average of squared stock betas
 ##---->the \bar(sp_t-1(eps_i)) which is the portfolio average of 'sdres' measured at stock level
+
+#SECTION E: CONSTRUCT TABLE 2
+
+
+
+table2_part_a <- port_data_period2|>
+  group_by(port) |>
+  summarise(beta_p=mean(beta_Port_Mean),sp_t=mean(sdres_Port_Mean),srp=sd(ret_Port_Mean), sdmkt=sd(mkt_Port_Mean))
+
+
+
+#Create beta estimation function for portfolios
+
+
+
+estimate_capm_port <- function(data, min_obs) {
+  if (nrow(data) < min_obs) {
+    se_p <- as.numeric(NA)
+  } else {
+    fit <- lm(ret_Port_Mean~mkt_Port_Mean, data = data)
+    rsquare <- summary(fit)$r.squared
+    se_p <- as.numeric(sd(residuals(fit), na.rm=TRUE))
+  }
+  return(tibble(
+    se_p,
+    rsquare))
+}
+
+
+
+
+
+table2_part_b <- port_data_period2 |>
+  mutate(month= floor_date(date, "month"))|>
+  group_by(port)|>
+  mutate(res_ie=estimate_capm_port(pick(everything()),min_obs = 48))|>##picks everything from last pipe and uses that as the dataset
+  ungroup()|>
+  select(port, res_ie)|>
+  drop_na()|>
+  group_by(port)|>
+  unique()
+
+
+
+table2_part_b <- bind_cols(table2_part_b[1], reduce(table2_part_b[-1], data.frame))
+
+
+
+table2 <- table2_part_a|>
+  inner_join(
+    table2_part_b, 
+    by = c('port'), keep=FALSE)|>
+  mutate(se_beta=se_p/(sqrt(48)*sdmkt),ratio=se_p/sp_t)|>
+  t()
+
+
+
+
+
+colnames(table2) <- as.character(table2[1, ])
+table2 <- table2[-1,]
