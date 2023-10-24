@@ -182,3 +182,73 @@ beta_pf_period2 <- crsp_pf_period2 |>
   drop_na()
 #The last line on "mutate" Uses "cut_number" to sort the betas into 20 portfolios, after sorting in ascending order
 
+
+#SECTION C3 - Initial Estimation Period
+crsp_ie_period2 <- tbl(Fama_Macbeth, "full_data")|> 
+  select(permno, date, ret, primexch) |> 
+  collect()|>
+  mutate(date=as.Date(date, format="%Y-%m-%d"))|>
+  mutate(month = floor_date(date, "month"), year=year(date))|>
+  na.omit()|>
+  group_by(month)|>
+  mutate(mkt = mean(ret))|>
+  filter(date>='1934-01-01' & date <= '1942-12-31')|>
+  ungroup()
+
+
+
+
+
+#SECTION C3.2 - Estimation of Betas in Estimation Period
+#Note: Minimum number of observations is now 5 years
+
+
+
+roll_capm_estimation <- function(data, months,  min_obs) {
+  data <- data |> arrange(month)
+  ie <- slide_period_vec(
+    .x = data,
+    .i = data$month,#specifies index
+    .period = "month",
+    .before= Inf,  #it will take all the current year and 'years' before
+    .f = ~ estimate_capm(., min_obs), #earlier specified CAPM estimation function
+    .complete = TRUE)# the function  evaluated on complete windows only
+  return(tibble(
+    estimation_end = unique(data$month),
+    ie ))} #create tibble with month and CAPM beta
+
+
+
+###Iterative Beta Estimation
+##Estimations for multiple firms
+## ------------1--------------Iterate using “group by(permno)”
+
+
+
+beta_ie_period2 <- crsp_ie_period2 |>
+  group_by(permno)|>
+  mutate(beta_ie=roll_capm_estimation(pick(everything()), months=60, min_obs = 60))|>##picks everything from last pipe and uses that as the dataset
+  ungroup()|>
+  select(permno, beta_ie)|>
+  drop_na()|>
+  group_by(permno)|>
+  mutate(date=ymd(beta_ie$estimation_end))|>
+  mutate(date=ceiling_date(as.Date(date, format="%Y-%m-%d"), "month")-days(1))|>
+  unique()
+
+
+beta_ie_period2 <- bind_cols(beta_ie_period2[1], reduce(beta_ie_period2[-1], data.frame))
+
+
+
+beta_ie_period2 <- beta_ie_period2 |> rename(date=elt)
+
+
+
+beta_ie_period2 <-beta_ie_period2 |>
+  filter(month(date)==12) #This keeps beta calculated as at end of every year, 
+#This is because beta in estimation window is updated every year according to the paper.
+
+
+
+###############################################
