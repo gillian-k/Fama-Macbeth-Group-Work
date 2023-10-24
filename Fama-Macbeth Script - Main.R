@@ -21,7 +21,8 @@ wrds <- dbConnect(Postgres(),
 
 crsp_query<- tbl(wrds, sql("select * from crsp.msf")) |>
   filter(date >= '1926-08-01' & date <= '1968-06-30') |>
-  select(permno, date, ret) |> collect()
+  select(permno, date, ret) |> 
+  collect()
 
 
 crsp_query_msenames<- tbl(wrds, sql("select * from crsp.msenames")) |>
