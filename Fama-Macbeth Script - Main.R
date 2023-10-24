@@ -252,3 +252,61 @@ beta_ie_period2 <-beta_ie_period2 |>
 
 
 ###############################################
+#SECTION D: CREATE PORTFOLIO DATA
+
+
+
+#start by merging stock return data with estimated betas, and portfolio placement
+returns_period2<-crsp_ie_period2|>
+  select(permno, date, ret, mkt)|>
+  mutate(beta_year=(year(date))-1)
+
+
+
+
+
+stock_betas_period2 <- beta_ie_period2 |> #merge between estimation betas and portfolio placement
+  inner_join((beta_pf_period2|>
+                select(permno, port)), 
+             by = c('permno'),keep=FALSE)|>
+  mutate(beta_year=(year(date)))|>
+  select(-date)
+
+
+
+
+
+stock_data_period2<-returns_period2|>
+  inner_join(stock_betas_period2, by =c('permno', 'beta_year'))|>
+  mutate(beta_sq=beta^2) #page 616 - squared values of beta at stock level
+
+
+
+
+
+count2<- stock_data_period2 %>% group_by(permno) %>%  #no of securities meeting data requirement for portfolio formation and initial estimation period
+  summarise(total_count=n(),
+            .groups = 'drop')
+
+
+
+#Create portfolio dataframe with average returns, average betas, average standard deviation of residuals
+
+
+
+port_data_period2 <- stock_data_period2 |> 
+  group_by(date, port)|>
+  summarise(across(
+    .cols = c(ret, mkt, beta, beta_sq, sdres),
+    .fns = list(Port_Mean = mean, Port_Sd=sd), na.rm = TRUE, 
+    .names = "{col}_{fn}"))|>
+  ungroup()
+
+
+
+
+
+#For the regression we need three things:
+##---->the portfolio beta (average of stock betas)
+##---->the square portfolio beta - average of squared stock betas
+##---->the \bar(sp_t-1(eps_i)) which is the portfolio average of 'sdres' measured at stock level
