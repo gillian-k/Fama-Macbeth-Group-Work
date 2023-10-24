@@ -17,11 +17,12 @@ wrds <- dbConnect(Postgres(),
                   port=9737,
                   dbname='wrds',
                   sslmode='require',
-                  user='kgillian')
+                  user='mingfan770')
 
 crsp_query<- tbl(wrds, sql("select * from crsp.msf")) |>
   filter(date >= '1926-08-01' & date <= '1968-06-30') |>
-  select(permno, date, ret) |> collect()
+  select(permno, date, ret) |> 
+  collect()
 
 
 crsp_query_msenames<- tbl(wrds, sql("select * from crsp.msenames")) |>
@@ -36,5 +37,5 @@ full_data <- crsp_query |>
   filter(shrcd == 10)
 
 
-
 full_data$year_month <- format(full_data$date, "%Y-%m")
+
