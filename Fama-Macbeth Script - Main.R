@@ -75,12 +75,15 @@ full_data_with_rf <- full_data |>
 ########################################################
 
 #SECTION B: Set up dataset in local DB
-setwd("C:/Users/gkimu/OneDrive/Documents/GitHub/Fama-Macbeth-Group-Work")
+
+setwd("C:/Fama_macbeth/Fama-Macbeth-Group-Work")
 Fama_Macbeth<- dbConnect(
   SQLite(),
   "data/FM_data.sqlite",
   extended_types = TRUE
 )
+
+
 
 dbWriteTable(Fama_Macbeth,
              "full_data", #name of table
@@ -283,7 +286,7 @@ table2 <- table2_part_a|>
 
 colnames(table2) <- as.character(table2[1, ])
 table2 <- table2[-1,]
-<<<<<<< HEAD
+
 
 #SECTION F: CONSTRUCT TABLE 3
 
