@@ -693,3 +693,123 @@ Table4_summary1 <- Table4_summary|> select(Period, mkt_ret, rm_minus_rf, lambda1
                                            lambda1_SD, lambda0_SD, rf_sd)
 Table4_summary1
 
+#DESIGN FUNCTION FOR CALCULATING T-STATS ON LAMBDAS AND FIRST ORDER AUTO-CORRELATION OF LAMBDAS
+lambdas_with_rf_new <- stacked_data |>  filter(port == 1) |> left_join(lambdas_with_rf, by = c("year_month","date", "rf", "no_grouping")) |>
+  select(date, out, elt, lambda0, lambda1, rsquare, year_month, rf, lambda0rf, no_grouping, mkt_Port_Mean, rm_minus_rf, )
+lambdas_with_rf_new$obs <- 1
+lambdas_with_rf_new |> mutate(mkt_ret_tstat = (mean(mkt_Port_Mean)*sqrt(sum(obs)))/(sd(mkt_Port_Mean)))
+names(lambdas_with_rf_new)
+lambdas_with_rf_new$no_grouping
+
+
+
+
+
+for_tstat1 <- lambdas_with_rf_new |> group_by(no_grouping) |> 
+  summarise(mkt_ret_tstat = (mean(mkt_Port_Mean)*sqrt(sum(obs)))/(sd(mkt_Port_Mean)), 
+            rm_minus_rf_tstat = (mean(rm_minus_rf)*sqrt(sum(obs)))/(sd(rm_minus_rf)),
+            lambda1_tstat = (mean(lambda1)*sqrt(sum(obs)))/(sd(lambda1)), 
+            lambda0_tstat = (mean(lambda0)*sqrt(sum(obs)))/(sd(lambda0)),
+            corr_mkt_ret = cor(mkt_Port_Mean,lag(mkt_Port_Mean), use = "na.or.complete"),
+            corr_rm_minu_rf = cor(rm_minus_rf,lag(rm_minus_rf), use = "na.or.complete"),
+            corr_lambda1 = cor(lambda1,lag(lambda1), use = "na.or.complete"),
+            corr_lambda0 = cor(lambda0,lag(lambda0), use = "na.or.complete"),
+            corr_rf = cor(rf,lag(rf), use = "na.or.complete"))
+
+
+
+
+
+for_tstat2 <- lambdas_with_rf_new |> group_by(out) |> 
+  summarise(mkt_ret_tstat = (mean(mkt_Port_Mean)*sqrt(sum(obs)))/(sd(mkt_Port_Mean)), 
+            rm_minus_rf_tstat = (mean(rm_minus_rf)*sqrt(sum(obs)))/(sd(rm_minus_rf)),
+            lambda1_tstat = (mean(lambda1)*sqrt(sum(obs)))/(sd(lambda1)), 
+            lambda0_tstat = (mean(lambda0)*sqrt(sum(obs)))/(sd(lambda0)),
+            corr_mkt_ret = cor(mkt_Port_Mean,lag(mkt_Port_Mean), use = "na.or.complete"),
+            corr_rm_minu_rf = cor(rm_minus_rf,lag(rm_minus_rf), use = "na.or.complete"),
+            corr_lambda1 = cor(lambda1,lag(lambda1), use = "na.or.complete"),
+            corr_lambda0 = cor(lambda0,lag(lambda0), use = "na.or.complete"),
+            corr_rf = cor(rf,lag(rf), use = "na.or.complete"))
+
+
+
+
+
+for_tstat3 <- lambdas_with_rf_new |> group_by(elt) |> 
+  summarise(mkt_ret_tstat = (mean(mkt_Port_Mean)*sqrt(sum(obs)))/(sd(mkt_Port_Mean)), 
+            rm_minus_rf_tstat = (mean(rm_minus_rf)*sqrt(sum(obs)))/(sd(rm_minus_rf)),
+            lambda1_tstat = (mean(lambda1)*sqrt(sum(obs)))/(sd(lambda1)), 
+            lambda0_tstat = (mean(lambda0)*sqrt(sum(obs)))/(sd(lambda0)),
+            corr_mkt_ret = cor(mkt_Port_Mean,lag(mkt_Port_Mean), use = "na.or.complete"),
+            corr_rm_minu_rf = cor(rm_minus_rf,lag(rm_minus_rf), use = "na.or.complete"),
+            corr_lambda1 = cor(lambda1,lag(lambda1), use = "na.or.complete"),
+            corr_lambda0 = cor(lambda0,lag(lambda0), use = "na.or.complete"),
+            corr_rf = cor(rf,lag(rf), use = "na.or.complete"))
+
+
+
+
+
+colnames(for_tstat1)[1] <- "Period"
+colnames(for_tstat2)[1] <- "Period"
+colnames(for_tstat3)[1] <- "Period"
+
+
+
+tstat_summary <- bind_rows(for_tstat1,for_tstat2,for_tstat3)
+
+
+
+names(summary_total)
+names(Table4_summary1)
+names(tstat_summary)
+
+
+
+
+
+Table4_summary1 <- Table4_summary1 |> select(Period, mkt_ret, rm_minus_rf, lambda1_Mean, lambda0_Mean, rf_mean,
+                                             market_sharpe_ratio, lambda1_Mean_by_mkt_ret_sd, mkt_ret_sd, lambda1_SD, lambda0_SD, rf_sd)
+tstat_summary <- tstat_summary |> select(Period, mkt_ret_tstat, rm_minus_rf_tstat, lambda1_tstat, lambda0_tstat, 
+                                         corr_mkt_ret, corr_rm_minu_rf, corr_lambda1, corr_lambda0, corr_rf)
+Table4_total <- left_join(Table4_summary1, tstat_summary, by ="Period")
+Table4_total
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+####################################
+#APPENDIX - SINGLE LINE FORMULAS OF MEASURING SERIAL CORRELATION
+
+
+
+
+
+lambdas_with_rf$lambda1
+cor(lambdas_with_rf$lambda1-mean(lambdas_with_rf$lambda1), lag(lambdas_with_rf$lambda1)-mean(lambdas_with_rf$lambda1), use = "na.or.complete")
+cor(lambdas_with_rf$lambda2, lag(lambdas_with_rf$lambda2), use = "na.or.complete")
+cor(lambdas_with_rf$lambda3, lag(lambdas_with_rf$lambda3), use = "na.or.complete")
+lambdas_with_rf_1935_1945 <- lambdas_with_rf |> filter(out == "1935 to 1945")
+
+
+
+cor(lambdas_with_rf_1935_1945$lambda1-mean(lambdas_with_rf_1935_1945$lambda1), lag(lambdas_with_rf_1935_1945$lambda1)-mean(lambdas_with_rf_1935_1945$lambda1), use = "na.or.complete")
+cor(lambdas_with_rf_1935_1945$lambda2, lag(lambdas_with_rf_1935_1945$lambda2), use = "na.or.complete")
+cor(lambdas_with_rf_1935_1945$lambda3, lag(lambdas_with_rf_1935_1945$lambda3), use = "na.or.complete")
+
+
+
+###################################
