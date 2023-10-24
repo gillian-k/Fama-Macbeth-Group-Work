@@ -26,3 +26,15 @@ crsp_query<- tbl(wrds, sql("select * from crsp.msf")) |>
 
 crsp_query_msenames<- tbl(wrds, sql("select * from crsp.msenames")) |>
   select(permno, primexch, shrcd) |> collect() |> unique()
+
+full_data <- crsp_query |> 
+  left_join(
+    crsp_query_msenames, 
+    by = c('permno'), keep=FALSE
+  ) |> 
+  filter(primexch == 'N')|>
+  filter(shrcd == 10)
+
+
+
+full_data$year_month <- format(full_data$date, "%Y-%m")
