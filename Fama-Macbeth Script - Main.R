@@ -211,6 +211,10 @@ returns_period2<-crsp_ie_period2|>
   select(permno, date, ret, mkt)|>
   mutate(beta_year=(year(date))-1)
 
+# IMPORTANT: for this data, we structure it such that the returns on the stock are merged with 
+#the estimated betas, residuals, and sd(residuals) from the previous year, hence the column called "beta_year". 
+#This is necessary since the cross sectional regression relies on lagged independent variables. 
+
 stock_betas_period2 <- beta_ie_period2 |> #merge between estimation betas and portfolio placement
   inner_join((beta_pf_period2|>
                 select(permno, port)), 
@@ -283,7 +287,6 @@ table2 <- table2_part_a|>
 
 colnames(table2) <- as.character(table2[1, ])
 table2 <- table2[-1,]
-<<<<<<< HEAD
 
 #SECTION F: CONSTRUCT TABLE 3
 
