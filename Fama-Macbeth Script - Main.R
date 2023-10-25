@@ -214,6 +214,10 @@ returns_period2<-crsp_ie_period2|>
   select(permno, date, ret, mkt)|>
   mutate(beta_year=(year(date))-1)
 
+# IMPORTANT: for this data, we structure it such that the returns on the stock are merged with 
+#the estimated betas, residuals, and sd(residuals) #from the previous year, hence the column called "beta_year". 
+#This is necessary since the cross sectional regression relies on lagged independent variables. 
+
 stock_betas_period2 <- beta_ie_period2 |> #merge between estimation betas and portfolio placement
   inner_join((beta_pf_period2|>
                 select(permno, port)), 
@@ -221,16 +225,16 @@ stock_betas_period2 <- beta_ie_period2 |> #merge between estimation betas and po
   mutate(beta_year=(year(date)))|>
   select(-date)
 
+
 stock_data_period2<-returns_period2|>
-  inner_join(stock_betas_period2, by =c('permno', 'beta_year'))|>
-  mutate(beta_sq=beta^2) #page 616 - squared values of beta at stock level
+  inner_join(stock_betas_period2, by =c('permno', 'beta_year'))|> #merge on beta year
+  mutate(beta_sq=beta^2) #page 616 - squared values of beta at stock level, which are then avareged at portfolio level
 
 count2<- stock_data_period2 %>% group_by(permno) %>%  #no of securities meeting data requirement for portfolio formation and initial estimation period
   summarise(total_count=n(),
             .groups = 'drop')
                                                                                                                                                                                                                                                                                                                                                                             
 #Create portfolio dataframe with average returns, average betas, average standard deviation of residuals
-
 port_data_period2 <- stock_data_period2 |> 
   group_by(date, port)|>
   summarise(across(
