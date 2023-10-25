@@ -70,3 +70,13 @@ risk_free<-ff_3factors_mon|>
 
 The relationship between risk and return in financial markets sets the tone for the two-parameter portfolio model. The testable implications of the model are that firstly, expected returns are linearly related to risk; second, the $\beta$ is a complete risk measure for any security $i$ and thirdly, market risk should bear a positive premium, such that higher risk is associated with a higher return.
 
+This way, we have the following: $$
+\begin{aligned}
+& \text { C1 }(\text { linearity })-E\left(\widetilde{\gamma}_{2 t}\right)=0 . \\
+& \text { C2 (no systematic effects of non- } \beta \text { risk })-E\left(\widetilde{\gamma}_{3 t}\right)=0 . \\
+& \text { C3 }(\text { positive expected return-risk tradeoff })-E\left(\widetilde{\gamma}_{1 t}\right)=E\left(\widetilde{R}_{m t}\right)- \\
+& E\left(\widetilde{R}_{0 t}\right)>0 .
+\end{aligned}
+$$
+
+This replication exercise follows the Fama & Macbeth (1973) empirical methodology in testing the validity of the two parameter model. The results are as follows: In Table 1, we summarize the sample selection for different periods of analysis. In Table 2, we summarize key statistical results including estimated portfolio betas, related standard errors, non-beta risk (portfolio standard deviation of residuals for selected periods. In Table 3, the main results on the test of the major hypotheses outlined above are provided from portfolio data analysis. Finally in Table 4, we document and discuss the behaviour of the observed market risk premium and the estimated risk premium.
