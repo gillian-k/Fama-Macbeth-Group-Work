@@ -12,5 +12,6 @@ We begin by subsetting the stock data into similar periods as used in the origin
 ##---->the square portfolio beta, initially measured at stock level, to capture non-linear market risk
 ##---->the portfolio standard deviation of residuals, initially measured at stock level, to capture non-beta market risk
 
+The CSV dataset is structured such that the returns on the stock are merged with the estimated betas, residuals, and sd(residuals) from the previous year, hence the column called "beta_year". This is necessary since the cross sectional regression relies on lagged independent variables. 
 
 
