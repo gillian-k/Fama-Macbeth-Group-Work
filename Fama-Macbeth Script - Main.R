@@ -38,8 +38,10 @@ full_data <- crsp_query |>
 
 full_data$year_month <- format(full_data$date, "%Y-%m")
 
+
 #SECTION A - RISK FREE RATE FROM FAMA FRENCH
 #####################################
+
 temp <- tempfile(fileext = ".zip")
 download.file("https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_CSV.zip",temp)
 temp1 <- unzip(temp, exdir = ".")
@@ -72,9 +74,11 @@ full_data_with_rf <- full_data |>
   left_join(
     risk_free, 
     by = c('year_month'), keep=FALSE)
-########################################################
+
+
 
 #SECTION B: Set up dataset in local DB
+#################################
 
 setwd("C:/Fama_macbeth/Fama-Macbeth-Group-Work")
 Fama_Macbeth<- dbConnect(
@@ -94,6 +98,7 @@ dbListTables(Fama_Macbeth)
 
 #SECTION C - Extract Data for each of the Periods
 #SECTION C1 - Portfolio Formation  to Testing Period
+#################################
 period2 <- tbl(Fama_Macbeth, "full_data")|> 
   select(permno, date, ret, primexch, shrcd) |> 
   collect()|>
@@ -112,6 +117,8 @@ count1<- period2 %>% group_by(permno) %>%  #no of securities available
 
 
 #SECTION C2 - Portfolio Formation Period Data
+#################################
+
 crsp_pf_period2 <- tbl(Fama_Macbeth, "full_data")|> 
   select(permno, date, ret, primexch) |> 
   collect()|>
@@ -121,10 +128,6 @@ crsp_pf_period2 <- tbl(Fama_Macbeth, "full_data")|>
   group_by(month)|>
   mutate(mkt = mean(ret))|>
   filter(date>='1927-01-01' & date<='1933-12-31')
-
-
-
-
 
 #Create beta estimation function
 estimate_capm <- function(data, min_obs) {
@@ -157,6 +160,8 @@ beta_pf_period2 <- crsp_pf_period2 |>
 
 
 #SECTION C3 - Initial Estimation Period
+#################################
+
 crsp_ie_period2 <- tbl(Fama_Macbeth, "full_data")|> 
   select(permno, date, ret, primexch) |> 
   collect()|>
@@ -207,7 +212,11 @@ beta_ie_period2 <-beta_ie_period2 |>
   filter(month(date)==12) #This keeps beta calculated as at end of every year, 
 #This is because beta in estimation window is updated every year according to the paper.
 
-###############################################
+
+
+
+#SECTION D: CREATE PORTOFLIO DATA
+#################################
 
 #start by merging stock return data with estimated betas, and portfolio placement
 returns_period2<-crsp_ie_period2|>
@@ -228,7 +237,7 @@ stock_betas_period2 <- beta_ie_period2 |> #merge between estimation betas and po
 
 stock_data_period2<-returns_period2|>
   inner_join(stock_betas_period2, by =c('permno', 'beta_year'))|> #merge on beta year
-  mutate(beta_sq=beta^2) #page 616 - squared values of beta at stock level, which are then avareged at portfolio level
+  mutate(beta_sq=beta^2) #page 616 - squared values of beta at stock level, which are then averaged at portfolio level
 
 count2<- stock_data_period2 %>% group_by(permno) %>%  #no of securities meeting data requirement for portfolio formation and initial estimation period
   summarise(total_count=n(),
@@ -248,7 +257,10 @@ port_data_period2 <- stock_data_period2 |>
 ##---->the square portfolio beta - average of squared stock betas
 ##---->the \bar(sp_t-1(eps_i)) which is the portfolio average of 'sdres' measured at stock level
 
+
+
 #SECTION E: CONSTRUCT TABLE 2
+#################################
 
 table2_part_a <- port_data_period2|>
   group_by(port) |>
@@ -293,6 +305,8 @@ table2 <- table2[-1,]
 
 
 #SECTION F: CONSTRUCT TABLE 3
+#################################
+
 
 #THIS IS THE STACKED DATASET WITH ALL PORTFOLIO DATA
 stacked_data <- read_csv("stacked_data_cross_sectional_regression.csv")
@@ -333,15 +347,18 @@ lambdas <- bind_cols(lambdas[1], reduce(lambdas[-1], data.frame))
 lambdas$date <- as.Date(lambdas$date, "%d/%m/%Y")
 lambdas$year_month<-format(lambdas$date, "%Y-%m")
 
-#OUTPUT IS DATAFRAME CALLED LAMBDAS
-#COMBINE RISK FREE RATE DATA WITH THE LAMBDAS
+#Note: Output is dataframe called lambdas
+#Combine risk free rate with lambdas
+
 lambdas_with_rf <- lambdas |> 
   left_join(
     risk_free, 
     by = c('year_month'), keep=FALSE)|>
   mutate(lambda0rf=lambda0-rf) #This is lambda_0 minus the risk free rate, as seen in Table 3 of paper
 
+
 #SECION F2 - TABLE 3 SUMMARIES
+#################################
 
 #SUMMARY 1A - AVERAGE AND STANDARD DEVIATION OF LAMBDAS
 summary1A<-lambdas_with_rf |>
@@ -417,9 +434,11 @@ summary3A<-lambdas_with_rf |>
     .fns = list(corr=corr),  
     .names = "{col}_{fn}"))
 
-###############################################
+
 
 #SECTION G - CONSTRUCT TABLE 4
+#################################
+
 #1. need to calculate port returns' mean and sd 
 #sAVE IT AS TIBBLE
 
@@ -561,7 +580,7 @@ Table4_total
 
 
 ####################################
-#APPENDIX - SINGLE LINE FORMULAS OF MEASURING SERIAL CORRELATION
+#APPENDIX - SINGLE LINE FORMULAS OF MEASURING SERIAL CORRELATION - IGNORE
 lambdas_with_rf$lambda1
 cor(lambdas_with_rf$lambda1-mean(lambdas_with_rf$lambda1), lag(lambdas_with_rf$lambda1)-mean(lambdas_with_rf$lambda1), use = "na.or.complete")
 cor(lambdas_with_rf$lambda2, lag(lambdas_with_rf$lambda2), use = "na.or.complete")
