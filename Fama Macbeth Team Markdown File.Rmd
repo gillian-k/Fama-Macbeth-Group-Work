@@ -68,4 +68,5 @@ risk_free<-ff_3factors_mon|>
 ```
 
 
+The relationship between risk and return in financial markets sets the tone for the two-parameter portfolio model. The testable implications of the model are that firstly, expected returns are linearly related to risk; second, the $\beta$ is a complete risk measure for any security $i$ and thirdly, market risk should bear a positive premium, such that higher risk is associated with a higher return.
 
