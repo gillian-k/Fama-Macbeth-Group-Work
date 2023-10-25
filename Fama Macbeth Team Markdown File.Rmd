@@ -81,3 +81,875 @@ This way, we have the following: $$
 $$
 
 This replication exercise follows the Fama & Macbeth (1973) empirical methodology in testing the validity of the two parameter model. The results are as follows: In Table 1, we summarize the sample selection for different periods of analysis. In Table 2, we summarize key statistical results including estimated portfolio betas, related standard errors, non-beta risk (portfolio standard deviation of residuals for selected periods. In Table 3, the main results on the test of the major hypotheses outlined above are provided from portfolio data analysis. Finally in Table 4, we document and discuss the behaviour of the observed market risk premium and the estimated risk premium.
+
+## Table 1: Portfolio formation, estimation, and testing periods\*\*
+
+|                                                | Periods |         |         |         |         |         |         |         |         |
+|-------------------------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+|                                                | **1**   | **2**   | **3**   | **4**   | **5**   | **6**   | **7**   | **8**   | **9**   |
+| **Portfolio formation period**                 | 1926-29 | 1927-33 | 1931-37 | 1935-41 | 1939-45 | 1943-49 | 1947-53 | 1951-57 | 1955-61 |
+| **Initial estimation period**                  | 1930-34 | 1934-38 | 1938-42 | 1942-46 | 1946-50 | 1950-54 | 1954-58 | 1958-62 | 1962-66 |
+| **Testing period**                             | 1935-38 | 1939-42 | 1943-46 | 1947-50 | 1951-54 | 1955-58 | 1959-62 | 1963-66 | 1967-68 |
+| **No. of securities avaliable**                | 781     | 811     | 819     | 820     | 808     | 850     | 1029    | 1175    | 1182    |
+| **No. of securities meeting data requirement** | 629     | 672     | 684     | 654     | 660     | 728     | 740     | 797     | 865     |
+
+## Table 2: Sample statistics for four selection periods
+
+| **Period 1934-38**                                      |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |
+|--------|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
+|                                                         | 1     | 2     | 3     | 4     | 5     | 6     | 7     | 8     | 9     | 10    | 11    | 12    | 13    | 14    | 15    | 16    | 17    | 18    | 19    | 20    |
+| $\hat{\beta}_{p,t-1}$                                   | 0.374 | 0.552 | 0.531 | 0.697 | 0.739 | 0.939 | 0.910 | 0.911 | 0.968 | 1.075 | 1.216 | 1.120 | 1.138 | 1.322 | 1.248 | 1.262 | 1.418 | 1.353 | 1.272 | 1.502 |
+| $s(\hat{\beta}_{p,t-1})$                                | 0.047 | 0.050 | 0.044 | 0.038 | 0.037 | 0.041 | 0.028 | 0.025 | 0.031 | 0.024 | 0.032 | 0.056 | 0.036 | 0.097 | 0.033 | 0.063 | 0.097 | 0.070 | 0.047 | 0.076 |
+| $r(R_p, R_m)^2$                                         | 0.627 | 0.725 | 0.749 | 0.869 | 0.889 | 0.942 | 0.964 | 0.964 | 0.950 | 0.976 | 0.962 | 0.902 | 0.945 | 0.849 | 0.965 | 0.910 | 0.862 | 0.906 | 0.933 | 0.905 |
+| $s(R_p)$                                                | 0.053 | 0.065 | 0.060 | 0.071 | 0.077 | 0.117 | 0.103 | 0.091 | 0.095 | 0.108 | 0.111 | 0.123 | 0.106 | 0.173 | 0.121 | 0.145 | 0.179 | 0.158 | 0.125 | 0.170 |
+| $s(\hat{\epsilon}_p)$                                   | 0.032 | 0.034 | 0.030 | 0.026 | 0.026 | 0.028 | 0.019 | 0.017 | 0.021 | 0.017 | 0.022 | 0.038 | 0.025 | 0.067 | 0.022 | 0.044 | 0.067 | 0.048 | 0.032 | 0.052 |
+| $s_{p,t-1}(\hat{\epsilon}_i)$                           | 0.080 | 0.089 | 0.079 | 0.085 | 0.097 | 0.114 | 0.111 | 0.103 | 0.097 | 0.110 | 0.139 | 0.132 | 0.121 | 0.137 | 0.126 | 0.133 | 0.137 | 0.136 | 0.141 | 0.174 |
+| $$ s(\hat{\epsilon}_p) / s_{p,t-1}(\hat{\epsilon}_i) $$ | 0.406 | 0.386 | 0.379 | 0.304 | 0.265 | 0.250 | 0.175 | 0.168 | 0.220 | 0.151 | 0.158 | 0.290 | 0.204 | 0.488 | 0.179 | 0.327 | 0.486 | 0.355 | 0.230 | 0.301 |
+| **Period 1942-46**                                      |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |
+| $\hat{\beta}_{p,t-1}$                                   | 0.417 | 0.600 | 0.543 | 0.629 | 0.726 | 0.822 | 0.744 | 0.808 | 0.842 | 0.875 | 1.005 | 0.985 | 1.005 | 1.144 | 1.387 | 1.274 | 1.218 | 1.581 | 1.601 | 1.457 |
+| $s(\hat{\beta}_{p,t-1})$                                | 0.045 | 0.053 | 0.042 | 0.034 | 0.041 | 0.037 | 0.040 | 0.041 | 0.044 | 0.035 | 0.038 | 0.036 | 0.041 | 0.044 | 0.047 | 0.054 | 0.045 | 0.056 | 0.082 | 0.076 |
+| $r(R_p, R_m)^2$                                         | 0.636 | 0.739 | 0.821 | 0.906 | 0.871 | 0.931 | 0.896 | 0.922 | 0.906 | 0.938 | 0.942 | 0.947 | 0.929 | 0.942 | 0.933 | 0.920 | 0.941 | 0.926 | 0.878 | 0.857 |
+| $s(R_p)$                                                | 0.026 | 0.035 | 0.034 | 0.038 | 0.039 | 0.048 | 0.042 | 0.051 | 0.049 | 0.049 | 0.055 | 0.054 | 0.053 | 0.062 | 0.063 | 0.066 | 0.063 | 0.070 | 0.081 | 0.069 |
+| $s(\hat{\epsilon}_p)$                                   | 0.016 | 0.018 | 0.014 | 0.012 | 0.014 | 0.013 | 0.014 | 0.014 | 0.015 | 0.012 | 0.013 | 0.012 | 0.014 | 0.015 | 0.016 | 0.019 | 0.015 | 0.019 | 0.028 | 0.026 |
+| $s_{p,t-1}(\hat{\epsilon}_i)$                           | 0.055 | 0.061 | 0.056 | 0.057 | 0.068 | 0.07  | 0.063 | 0.066 | 0.066 | 0.070 | 0.076 | 0.077 | 0.085 | 0.084 | 0.099 | 0.087 | 0.085 | 0.116 | 0.110 | 0.115 |
+| $$ s(\hat{\epsilon}_p) / s_{p,t-1}(\hat{\epsilon}_i) $$ | 0.283 | 0.297 | 0.256 | 0.205 | 0.210 | 0.179 | 0.217 | 0.215 | 0.228 | 0.171 | 0.172 | 0.161 | 0.165 | 0.179 | 0.163 | 0.214 | 0.181 | 0.164 | 0.257 | 0.227 |
+| **Period 1950-54**                                      |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |
+| $\hat{\beta}_{p,t-1}$                                   | 0.517 | 0.619 | 0.685 | 0.736 | 0.759 | 0.915 | 0.893 | 0.905 | 1.014 | 1.123 | 1.116 | 1.064 | 1.142 | 1.090 | 1.215 | 1.113 | 1.197 | 1.359 | 1.489 | 1.398 |
+| $s(\hat{\beta}_{p,t-1})$                                | 0.039 | 0.042 | 0.050 | 0.045 | 0.049 | 0.045 | 0.046 | 0.054 | 0.039 | 0.084 | 0.068 | 0.044 | 0.063 | 0.052 | 0.070 | 0.049 | 0.059 | 0.082 | 0.090 | 0.087 |
+| $r(R_p, R_m)^2$                                         | 0.833 | 0.819 | 0.786 | 0.845 | 0.826 | 0.913 | 0.885 | 0.842 | 0.920 | 0.766 | 0.864 | 0.927 | 0.875 | 0.904 | 0.864 | 0.916 | 0.884 | 0.823 | 0.820 | 0.817 |
+| $s(R_p)$                                                | 0.023 | 0.024 | 0.027 | 0.028 | 0.029 | 0.038 | 0.033 | 0.034 | 0.034 | 0.042 | 0.045 | 0.040 | 0.044 | 0.041 | 0.047 | 0.042 | 0.042 | 0.048 | 0.052 | 0.050 |
+| $s(\hat{\epsilon}_p)$                                   | 0.010 | 0.010 | 0.012 | 0.011 | 0.012 | 0.011 | 0.011 | 0.013 | 0.010 | 0.021 | 0.017 | 0.011 | 0.015 | 0.013 | 0.017 | 0.012 | 0.014 | 0.020 | 0.022 | 0.021 |
+| $s_{p,t-1}(\hat{\epsilon}_i)$                           | 0.042 | 0.052 | 0.048 | 0.052 | 0.050 | 0.054 | 0.051 | 0.059 | 0.053 | 0.066 | 0.060 | 0.061 | 0.065 | 0.060 | 0.070 | 0.064 | 0.067 | 0.075 | 0.079 | 0.087 |
+| $$ s(\hat{\epsilon}_p) / s_{p,t-1}(\hat{\epsilon}_i) $$ | 0.226 | 0.197 | 0.256 | 0.211 | 0.240 | 0.206 | 0.221 | 0.225 | 0.181 | 0.310 | 0.277 | 0.176 | 0.240 | 0.212 | 0.245 | 0.188 | 0.215 | 0.270 | 0.282 | 0.247 |
+| **Period 1958-62**                                      |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |
+| $\hat{\beta}_{p,t-1}$                                   | 0.639 | 0.674 | 0.798 | 0.740 | 0.863 | 0.947 | 0.894 | 0.856 | 0.931 | 0.979 | 1.005 | 1.082 | 0.992 | 1.081 | 0.975 | 1.139 | 1.141 | 1.117 | 1.251 | 1.382 |
+| $s(\hat{\beta}_{p,t-1})$                                | 0.065 | 0.067 | 0.061 | 0.062 | 0.063 | 0.091 | 0.052 | 0.049 | 0.069 | 0.065 | 0.049 | 0.055 | 0.053 | 0.057 | 0.055 | 0.067 | 0.056 | 0.065 | 0.073 | 0.102 |
+| $r(R_p, R_m)^2$                                         | 0.665 | 0.647 | 0.811 | 0.735 | 0.766 | 0.609 | 0.844 | 0.871 | 0.784 | 0.819 | 0.868 | 0.883 | 0.871 | 0.885 | 0.875 | 0.831 | 0.895 | 0.856 | 0.859 | 0.802 |
+| $s(R_p)$                                                | 0.028 | 0.029 | 0.035 | 0.030 | 0.033 | 0.037 | 0.033 | 0.035 | 0.038 | 0.039 | 0.034 | 0.041 | 0.037 | 0.043 | 0.04  | 0.041 | 0.044 | 0.043 | 0.049 | 0.058 |
+| $s(\hat{\epsilon}_p)$                                   | 0.016 | 0.017 | 0.015 | 0.016 | 0.016 | 0.023 | 0.013 | 0.012 | 0.018 | 0.017 | 0.012 | 0.014 | 0.013 | 0.014 | 0.014 | 0.017 | 0.014 | 0.016 | 0.018 | 0.026 |
+| $s_{p,t-1}(\hat{\epsilon}_i)$                           | 0.055 | 0.059 | 0.064 | 0.061 | 0.065 | 0.069 | 0.065 | 0.062 | 0.065 | 0.066 | 0.067 | 0.076 | 0.064 | 0.072 | 0.065 | 0.070 | 0.081 | 0.074 | 0.069 | 0.080 |
+| $$ s(\hat{\epsilon}_p) / s_{p,t-1}(\hat{\epsilon}_i) $$ | 0.301 | 0.286 | 0.241 | 0.255 | 0.247 | 0.333 | 0.204 | 0.199 | 0.271 | 0.251 | 0.186 | 0.183 | 0.209 | 0.201 | 0.216 | 0.242 | 0.176 | 0.222 | 0.267 | 0.322 |
+
+## Table 3 - Tests of the Major Hypotheses of the Two Parameter Model
+
+To test the implications highlighted in the introduction, the following empirical cross-sectional model is estimated on portfolio data on a month-by-month basis: $$
+\begin{gathered}
+R_{p t}=\hat{\gamma}_{0 t}+\hat{\gamma}_{1 t} \hat{\beta}_{p, t-1}+\hat{\gamma}_{2 t} \hat{\beta}^2{ }_{p, t-1}+\hat{\gamma}_{3 t} \bar{s}_{p, t-1}\left(\hat{\epsilon}_i\right)+\hat{\eta}_{p t} \\
+p=1,2, \ldots, 20
+\end{gathered}
+$$ where $\hat{\beta}_{p, t-1}$ is the lagged average $\hat{\beta}_{i, t-1}$ of securities in each portfolio, $\hat{\beta}^2{ }_{p, t-1}$ is the average of the squared beta estimates at stock level, and $\bar{s}_{p, t-1}\left(\hat{\epsilon}_i\right)$ is the portfolio average of the stocks' residual standard deviation, which captures non-$\beta$ risk (unsystematic risk)
+
+The estimates in Panel A to Panel C are based on the following model specifications, where one or more parameters is constrained. Panel D provides estimates of the full model.
+
+$$ \text{Panel A} \Rightarrow 
+\begin{gathered}
+R_{p t}=\hat{\gamma}_{0 t}+\hat{\gamma}_{1 t} \hat{\beta}_{p, t-1}+\hat{\eta}_{p t} \\
+p=1,2, \ldots, 20
+\end{gathered}
+$$ $$ \text{Panel B} \Rightarrow 
+\begin{gathered}
+R_{p t}=\hat{\gamma}_{0 t}+\hat{\gamma}_{1 t} \hat{\beta}_{p, t-1}+\hat{\gamma}_{2 t} \hat{\beta}^2{ }_{p, t-1}+\hat{\eta}_{p t} \\
+p=1,2, \ldots, 20
+\end{gathered}
+$$ $$ \text{Panel C} \Rightarrow 
+\begin{gathered}
+R_{p t}=\hat{\gamma}_{0 t}+\hat{\gamma}_{1 t} \hat{\beta}_{p, t-1}+\hat{\gamma}_{3 t} \bar{s}_{p, t-1}\left(\hat{\epsilon}_i\right)+\hat{\eta}_{p t} \\
+p=1,2, \ldots, 20
+\end{gathered}
+$$
+
+### Summary of Results
+
+The validity of the two parameter model is confirmed with the following findings:
+
+1)  the statitical significance of $\gamma_1$ in the full sample (t(\$\\gamma_1\$)=2.7)
+
+2)  the insignificance of the non-linear measure of risk as captured by $\gamma_2$. The linear relationship cannot be rejected from the general insignificance of $\gamma_2$ in Panel B and D. The t-statistic of $\gamma_2$ (non-linear market risk) is significant only in 1951/55 in Panel B, but this significance disappears in the full model after accounting for non-beta risk. From this, we can FAIL TO REJECT that $\beta$ is infact linearly related to returns and is the only important source of risk
+
+3)  the insignificance of the non-beta risk, whose effect is captured by $\gamma_3$. Just as seen in the original estimation by Fama & Macbeth (1973), the t statistics of $\gamma_3$ are small, randomly positive and negative, with large standard errors across most subperiods.
+
+4)  Most importantly, we estimate a positive price of risk in the full sample from 1935 to 1968, and in 5 out of the 6 smaller subperiods, with the exception of 1946 to 1950 (statitically insignificant).
+
+#### Panel A - Market Risk Only (Beta)
+
+```{r include=FALSE}
+#Create LAMBDA estimation function (No Lambda 2 and 3  - Squared Beta and SD residuals REMOVED FROM MODEL)
+estimate_lambdas <- function(data, min_obs) {
+  if (nrow(data) < min_obs) {
+    lambda0 <- as.numeric(NA)
+    lambda1 <- as.numeric(NA)
+    #lambda2 <- as.numeric(NA)
+    #lambda3 <- as.numeric(NA)
+    r_square <- as.numeric(NA)
+  } else {
+    fit <- lm(ret_Port_Mean~beta_Port_Mean+beta_sq_Port_Mean, data = data)
+    lambda0 <- as.numeric(coefficients(fit)[1])
+    lambda1 <- as.numeric(coefficients(fit)[2])
+    #lambda2 <- as.numeric(coefficients(fit)[])
+    #lambda3 <- as.numeric(coefficients(fit)[])
+    rsquare <- summary(fit)$r.squared
+  }
+  return(tibble(
+    lambda0,
+    lambda1,
+    #lambda2,
+    #lambda3,
+    rsquare))
+}
+
+lambdas <- stacked_data |>
+  group_by(date) |>
+  mutate(model=estimate_lambdas(pick(everything()), min_obs=0)) |>##picks everything from last pipe and uses that as the dataset
+  ungroup() |>
+  select(date, subperiodlarge, subperiodsmall, model) |>
+  drop_na()|>
+  unique()
+
+lambdas <- bind_cols(lambdas[1], reduce(lambdas[-1], data.frame))
+lambdas$date <- as.Date(lambdas$date, "%d/%m/%Y")
+lambdas$year_month<-format(lambdas$date, "%Y-%m")
+
+#OUTPUT IS DATAFRAME CALLED LAMBDAS
+
+########################################################
+
+#COMBINE RISK FREE RATE DATA WITH THE LAMBDAS
+lambdas_with_rf <- lambdas |> 
+  left_join(
+    risk_free, 
+    by = c('year_month'), keep=FALSE)|>
+  mutate(lambda0rf=lambda0-rf)|> #This is lambda_0 minus the risk free rate, as seen in Table 3 of paper
+  add_column(full = "1935/68")
+
+#TABLE 3 SUMMARIES - 
+#Note:summaries have been separately computed to maintain table layout in the main paper
+#SUMMARY 1A - AVERAGE AND STANDARD DEVIATION OF LAMBDAS
+Asummary1a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Asummary1b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Asummary1c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+############################
+
+#DESIGN FUNCTION FOR CALCULATING T-STATS ON LAMBDAS AND FIRST ORDER AUTO-CORRELATION OF LAMBDAS
+#REPEAT STATISTICS ESTIMATION AS DONE ABOVE
+tstat <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- mean(x)
+  sd <- sd(x)
+  tstat<-mean(x)/(sd(x)/sqrt(n()))
+}
+
+corr <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- 0
+  cor(x-mean, lag(x)-mean, use = "na.or.complete")
+}
+############################
+
+
+#FIRST ORDER AUTOCORRELATION
+
+Asummary2a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Asummary2b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Asummary2c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+#TSTATISTICS
+
+Asummary3a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Asummary3b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Asummary3c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+```
+
+```{r echo=F, include=F}
+
+Asummary_stack1<- as.data.frame(rbind(as.matrix(Asummary1a),as.matrix(Asummary1b), as.matrix(Asummary1c)))
+Asummary_stack2<- as.data.frame(rbind(as.matrix(Asummary2a),as.matrix(Asummary2b), as.matrix(Asummary2c)))
+Asummary_stack3<- as.data.frame(rbind(as.matrix(Asummary3a),as.matrix(Asummary3b), as.matrix(Asummary3c)))
+
+```
+
+```{r include=F}
+
+Asummary_stack<- Asummary_stack1|>
+  left_join(Asummary_stack2, by="full")|>
+  left_join(Asummary_stack3, by="full")
+Asummary_stack
+```
+
+```{r echo=F, include=T}
+
+knitr::kable(Asummary_stack,
+  col.names = c("PERIOD","$\\bar{\\gamma_0}$","$s(\\gamma_0)$","$\\bar{\\gamma_1}$","$s(\\gamma_1$)", "$\\overline{{\\gamma_0 - R_f}}$","$s(\\gamma_0 - R_f$)", "$\\bar{R^2}$","$s(R^2)$","$\\rho_0(\\gamma_0-R_f)$","$\\rho_0(\\gamma_1)$","$t(\\gamma_0)$","$t(\\gamma_1)$", "$t(\\gamma_0- R_f)$"),  escape = FALSE, booktab=TRUE)
+
+```
+
+#### Panel B - Market Risk (Beta) and Non-Linear Market Risk (Squared Beta)
+
+```{r include=FALSE}
+#Create LAMBDA estimation function (NO LAMBDA 3 - SD of Residuals removed from model)
+estimate_lambdas <- function(data, min_obs) {
+  if (nrow(data) < min_obs) {
+    lambda0 <- as.numeric(NA)
+    lambda1 <- as.numeric(NA)
+    lambda2 <- as.numeric(NA)
+    #lambda3 <- as.numeric(NA)
+    r_square <- as.numeric(NA)
+  } else {
+    fit <- lm(ret_Port_Mean~beta_Port_Mean+beta_sq_Port_Mean, data = data)
+    lambda0 <- as.numeric(coefficients(fit)[1])
+    lambda1 <- as.numeric(coefficients(fit)[2])
+    lambda2 <- as.numeric(coefficients(fit)[3])
+    #lambda3 <- as.numeric(coefficients(fit)[3])
+    rsquare <- summary(fit)$r.squared
+  }
+  return(tibble(
+    lambda0,
+    lambda1,
+    lambda2,
+    #lambda3,
+    rsquare))
+}
+
+lambdas <- stacked_data |>
+  group_by(date) |>
+  mutate(model=estimate_lambdas(pick(everything()), min_obs=0)) |>##picks everything from last pipe and uses that as the dataset
+  ungroup() |>
+  select(date, subperiodlarge, subperiodsmall, model) |>
+  drop_na()|>
+  unique()
+
+lambdas <- bind_cols(lambdas[1], reduce(lambdas[-1], data.frame))
+lambdas$date <- as.Date(lambdas$date, "%d/%m/%Y")
+lambdas$year_month<-format(lambdas$date, "%Y-%m")
+
+#OUTPUT IS DATAFRAME CALLED LAMBDAS
+
+########################################################
+
+#COMBINE RISK FREE RATE DATA WITH THE LAMBDAS
+lambdas_with_rf <- lambdas |> 
+  left_join(
+    risk_free, 
+    by = c('year_month'), keep=FALSE)|>
+  mutate(lambda0rf=lambda0-rf)|> #This is lambda_0 minus the risk free rate, as seen in Table 3 of paper
+  add_column(full = "1935/68")
+
+#TABLE 3 SUMMARIES - 
+#Note:summaries have been separately computed to maintain table layout in the main paper
+#SUMMARY 1A - AVERAGE AND STANDARD DEVIATION OF LAMBDAS
+Bsummary1a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Bsummary1b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Bsummary1c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1,lambda2, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+############################
+
+#DESIGN FUNCTION FOR CALCULATING T-STATS ON LAMBDAS AND FIRST ORDER AUTO-CORRELATION OF LAMBDAS
+#REPEAT STATISTICS ESTIMATION AS DONE ABOVE
+tstat <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- mean(x)
+  sd <- sd(x)
+  tstat<-mean(x)/(sd(x)/sqrt(n()))
+}
+
+corr <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- 0
+  cor(x-mean, lag(x)-mean, use = "na.or.complete")
+}
+############################
+
+
+#FIRST ORDER AUTOCORRELATION
+
+Bsummary2a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1, lambda2), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Bsummary2b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1, lambda2), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Bsummary2c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1,  lambda2), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+#TSTATISTICS
+
+Bsummary3a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Bsummary3b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Bsummary3c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1,  lambda2, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+```
+
+```{r echo=F, include=F}
+
+Bsummary_stack1<- as.data.frame(rbind(as.matrix(Bsummary1a),as.matrix(Bsummary1b), as.matrix(Bsummary1c)))
+Bsummary_stack2<- as.data.frame(rbind(as.matrix(Bsummary2a),as.matrix(Bsummary2b), as.matrix(Bsummary2c)))
+Bsummary_stack3<- as.data.frame(rbind(as.matrix(Bsummary3a),as.matrix(Bsummary3b), as.matrix(Bsummary3c)))
+
+```
+
+```{r include=F}
+
+Bsummary_stack<- Bsummary_stack1|>
+  left_join(Bsummary_stack2, by="full")|>
+  left_join(Bsummary_stack3, by="full")
+Bsummary_stack
+```
+
+```{r echo=F, include=T}
+
+knitr::kable(Bsummary_stack,
+  col.names = c("PERIOD","$\\bar{\\gamma_0}$","$s(\\gamma_0)$","$\\bar{\\gamma_1}$","$s(\\gamma_1$)","$\\bar{\\gamma_2}$","$s(\\gamma_2$)", "$\\overline{{\\gamma_0 - R_f}}$","$s(\\gamma_0 - R_f$)", "$\\bar{R^2}$","$s(R^2)$","$\\rho_0(\\gamma_0-R_f)$","$\\rho_0(\\gamma_1)$","$\\rho_0(\\gamma_2$)","$t(\\gamma_0)$","$t(\\gamma_1)$","$t(\\gamma_2$)", "$t(\\gamma_0- R_f)$"),  escape = FALSE, booktab=TRUE)
+
+```
+
+\newpage
+
+#### Panel C - Market Risk (Beta) and Non Beta Risk (Portfolio SD of Residuals)
+
+```{r einclude=FALSE}
+#Create LAMBDA estimation function (NO LAMBDA 2 - Squared beta removed from model)
+estimate_lambdas <- function(data, min_obs) {
+  if (nrow(data) < min_obs) {
+    lambda0 <- as.numeric(NA)
+    lambda1 <- as.numeric(NA)
+    #lambda2 <- as.numeric(NA)
+    lambda3 <- as.numeric(NA)
+    r_square <- as.numeric(NA)
+  } else {
+    fit <- lm(ret_Port_Mean~beta_Port_Mean+sdres_Port_Mean, data = data)
+    lambda0 <- as.numeric(coefficients(fit)[1])
+    lambda1 <- as.numeric(coefficients(fit)[2])
+    #lambda2 <- as.numeric(coefficients(fit)[]) #coefficient doesnt exist
+    lambda3 <- as.numeric(coefficients(fit)[3])
+    rsquare <- summary(fit)$r.squared
+  }
+  return(tibble(
+    lambda0,
+    lambda1,
+    #lambda2,
+    lambda3,
+    rsquare))
+}
+
+lambdas <- stacked_data |>
+  group_by(date) |>
+  mutate(model=estimate_lambdas(pick(everything()), min_obs=0)) |>##picks everything from last pipe and uses that as the dataset
+  ungroup() |>
+  select(date, subperiodlarge, subperiodsmall, model) |>
+  drop_na()|>
+  unique()
+
+lambdas <- bind_cols(lambdas[1], reduce(lambdas[-1], data.frame))
+lambdas$date <- as.Date(lambdas$date, "%d/%m/%Y")
+lambdas$year_month<-format(lambdas$date, "%Y-%m")
+
+#OUTPUT IS DATAFRAME CALLED LAMBDAS
+
+########################################################
+
+#COMBINE RISK FREE RATE DATA WITH THE LAMBDAS
+lambdas_with_rf <- lambdas |> 
+  left_join(
+    risk_free, 
+    by = c('year_month'), keep=FALSE)|>
+  mutate(lambda0rf=lambda0-rf)|> #This is lambda_0 minus the risk free rate, as seen in Table 3 of paper
+  add_column(full = "1935/68")
+
+#TABLE 3 SUMMARIES - 
+#Note:summaries have been separately computed to maintain table layout in the main paper
+#SUMMARY 1A - AVERAGE AND STANDARD DEVIATION OF LAMBDAS
+Csummary1a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Csummary1b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Csummary1c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1,lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+############################
+
+#DESIGN FUNCTION FOR CALCULATING T-STATS ON LAMBDAS AND FIRST ORDER AUTO-CORRELATION OF LAMBDAS
+#REPEAT STATISTICS ESTIMATION AS DONE ABOVE
+tstat <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- mean(x)
+  sd <- sd(x)
+  tstat<-mean(x)/(sd(x)/sqrt(n()))
+}
+
+corr <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- 0
+  cor(x-mean, lag(x)-mean, use = "na.or.complete")
+}
+############################
+
+
+#FIRST ORDER AUTOCORRELATION
+
+Csummary2a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1, lambda3), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Csummary2b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1, lambda3), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Csummary2c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1,  lambda3), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+#TSTATISTICS
+
+Csummary3a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda3, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Csummary3b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda3, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Csummary3c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1,  lambda3, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+```
+
+```{r echo=F, include=F}
+
+Csummary_stack1<- as.data.frame(rbind(as.matrix(Csummary1a),as.matrix(Csummary1b), as.matrix(Csummary1c)))
+Csummary_stack2<- as.data.frame(rbind(as.matrix(Csummary2a),as.matrix(Csummary2b), as.matrix(Csummary2c)))
+Csummary_stack3<- as.data.frame(rbind(as.matrix(Csummary3a),as.matrix(Csummary3b), as.matrix(Csummary3c)))
+
+```
+
+```{r echo=F, include=F}
+
+#Csummary_stack<- as.data.frame(cbind(as.matrix(Csummary_stack1),as.matrix(Csummary_stack2), as.matrix(Csummary_stack3)))
+
+```
+
+```{r include=F}
+
+Csummary_stack<- Csummary_stack1|>
+  left_join(Csummary_stack2, by="full")|>
+  left_join(Csummary_stack3, by="full")
+Csummary_stack
+```
+
+```{r echo=F, include=T}
+
+knitr::kable(Csummary_stack,
+  col.names = c("PERIOD","$\\bar{\\gamma_0}$","$s(\\gamma_0)$","$\\bar{\\gamma_1}$","$s(\\gamma_1$)","$\\bar{\\gamma_3}$","$s(\\gamma_3$)", "$\\overline{{\\gamma_0 - R_f}}$","$s(\\gamma_0 - R_f$)", "$\\bar{R^2}$","$s(R^2)$","$\\rho_0(\\gamma_0-R_f)$","$\\rho_0(\\gamma_1)$","$\\rho_0(\\gamma_3$)","$t(\\gamma_0)$","$t(\\gamma_1)$","$t(\\gamma_3$)", "$t(\\gamma_0- R_f)$"),  escape = FALSE, booktab=TRUE)
+
+```
+
+#### Panel D - Market Risk (Beta), Non-Linear Market Risk and Non Beta Risk
+
+```{r include=FALSE}
+
+#Create LAMBDA estimation function
+estimate_lambdas <- function(data, min_obs) {
+  if (nrow(data) < min_obs) {
+    lambda0 <- as.numeric(NA)
+    lambda1 <- as.numeric(NA)
+    lambda2 <- as.numeric(NA)
+    lambda3 <- as.numeric(NA)
+    r_square <- as.numeric(NA)
+  } else {
+    fit <- lm(ret_Port_Mean~beta_Port_Mean+beta_sq_Port_Mean+sdres_Port_Mean, data = data)
+    lambda0 <- as.numeric(coefficients(fit)[1])
+    lambda1 <- as.numeric(coefficients(fit)[2])
+    lambda2 <- as.numeric(coefficients(fit)[3])
+    lambda3 <- as.numeric(coefficients(fit)[4])
+    rsquare <- summary(fit)$r.squared
+  }
+  return(tibble(
+    lambda0,
+    lambda1,
+    lambda2,
+    lambda3,
+    rsquare))
+}
+
+lambdas <- stacked_data |>
+  group_by(date) |>
+  mutate(model=estimate_lambdas(pick(everything()), min_obs=0)) |>##picks everything from last pipe and uses that as the dataset
+  ungroup() |>
+  select(date, subperiodlarge, subperiodsmall, model) |>
+  drop_na()|>
+  unique()
+
+lambdas <- bind_cols(lambdas[1], reduce(lambdas[-1], data.frame))
+lambdas$date <- as.Date(lambdas$date, "%d/%m/%Y")
+lambdas$year_month<-format(lambdas$date, "%Y-%m")
+
+#OUTPUT IS DATAFRAME CALLED LAMBDAS
+
+########################################################
+
+#COMBINE RISK FREE RATE DATA WITH THE LAMBDAS
+lambdas_with_rf <- lambdas |> 
+  left_join(
+    risk_free, 
+    by = c('year_month'), keep=FALSE)|>
+  mutate(lambda0rf=lambda0-rf)|> #This is lambda_0 minus the risk free rate, as seen in Table 3 of paper
+  add_column(full = "1935/68")
+
+
+
+#TABLE 3 SUMMARIES - 
+#Note:summaries have been separately computed to maintain table layout in the main paper
+#SUMMARY 1A - AVERAGE AND STANDARD DEVIATION OF LAMBDAS
+Dsummary1a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Dsummary1b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Dsummary1c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3, lambda0rf, rsquare), 
+    .fns = list(Mean = mean, SD = sd),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+############################
+
+#DESIGN FUNCTION FOR CALCULATING T-STATS ON LAMBDAS AND FIRST ORDER AUTO-CORRELATION OF LAMBDAS
+#REPEAT STATISTICS ESTIMATION AS DONE ABOVE
+tstat <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- mean(x)
+  sd <- sd(x)
+  tstat<-mean(x)/(sd(x)/sqrt(n()))
+}
+
+corr <- function(x, na.rm = FALSE) {
+  if(na.rm){ #if na.rm is TRUE, remove NA values from input x
+    x = x[!is.na(x)]
+  }
+  mean<- 0
+  cor(x-mean, lag(x)-mean, use = "na.or.complete")
+}
+############################
+
+
+#FIRST ORDER AUTOCORRELATION
+
+Dsummary2a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1, lambda2, lambda3), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Dsummary2b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1,  lambda2, lambda3), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Dsummary2c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0rf, lambda1,  lambda2, lambda3), 
+    .fns = list(Corr=corr),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+#TSTATISTICS
+
+Dsummary3a<-lambdas_with_rf |>
+  group_by(full)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+Dsummary3b<-lambdas_with_rf |>
+  group_by(out)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1, lambda2, lambda3, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+Dsummary3c<-lambdas_with_rf |>
+  group_by(elt)|>
+  summarise(across(
+    .cols = c(lambda0, lambda1,  lambda2, lambda3, lambda0rf), 
+    .fns = list(TSTAT=tstat),  
+    .names = "{col}_{fn}"))|>
+   mutate_if(is.numeric, format, digits=2)
+
+
+```
+
+```{r}
+Dsummary_stack1<- as.data.frame(rbind(as.matrix(Dsummary1a),as.matrix(Dsummary1b), as.matrix(Dsummary1c)))
+Dsummary_stack2<- as.data.frame(rbind(as.matrix(Dsummary2a),as.matrix(Dsummary2b), as.matrix(Dsummary2c)))
+Dsummary_stack3<- as.data.frame(rbind(as.matrix(Dsummary3a),as.matrix(Dsummary3b), as.matrix(Dsummary3c)))
+```
+
+```{r echo=F, include=F}
+
+Dsummary_stack<- Dsummary_stack1|>
+  left_join(Dsummary_stack2, by="full")|>
+  left_join(Dsummary_stack3, by="full")
+
+Dsummary_stack
+```
+
+```{r echo=F}
+
+
+knitr::kable(Dsummary_stack,
+  col.names = c("PERIOD","$\\bar{\\gamma_0}$","$s(\\gamma_0)$","$\\bar{\\gamma_1}$","$s(\\gamma_1$)","$\\overline{\\gamma_2}$","$s(\\gamma_2$)","$\\bar{\\gamma_3}$","$s(\\gamma_3$)", "$\\overline{{\\gamma_0 - R_f}}$","$s(\\gamma_0 - R_f$)", "$\\bar{R^2}$","$s(R^2)$","$\\rho_0(\\gamma_0-R_f)$","$\\rho_0(\\gamma_1)$", "$\\rho_0(\\gamma_2)$","$\\rho_0(\\gamma_3$)","$t(\\gamma_0)$","$t(\\gamma_1)$","$t(\\gamma_2)$","$t(\\gamma_3$)", "$t(\\gamma_0- R_f)$"),  escape = FALSE, booktab=TRUE)
+```
+
+\newpage
+
+
+## Table 4: The Behavior of the Market
+
+Table 4 is for examining the two-parameter Sharpe-Lintner model where the returns of zero beta portfolios are the same with risk-free rates. The gammas used for testing the Sharpe-Lintner model are the same as those of Table 3, Panel A because the standard deviations of the gammas are the lowest in Table 3. By comparing market excess returns $(R_m – R_f)$ and ${\gamma_1}$, the SL hypothesis can be tested. Based on the results reported in Table 4, such as $(R_m-R_f)$ and ${\gamma_1}$, t-stats of $(R_m-R_f)$ and ${\gamma_1}$, and serial correlations of $(R_m-R_f)$ and ${\gamma_1}$, the SL hypothesis seem to be rejected.
+
+#### Panel A
+
+|            |   Statistic\*    |                        |                             |                             |                  |                                           |                                                |          |                     |                     |
+|:-------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| **Period** | $\overline{R_m}$ | $\overline{R_m - R_f}$ | $\overline{\hat{\gamma}_1}$ | $\overline{\hat{\gamma}_0}$ | $\overline{R_f}$ | $$ \overline{\frac{R_m - R_f}{s(R_m)}} $$ | $$ \frac{\overline{\hat{\gamma}_1}}{s(R_m)} $$ | $s(R_m)$ | $s(\hat{\gamma}_1)$ | $s(\hat{\gamma}_0)$ |
+| 1935-6/68  |      0.0148      |         0.0135         |           0.0201            |           0.0006            |      0.0013      |                  0.2081                   |                     0.3093                     |  0.065   |        0.152        |        0.087        |
+|  1935-45   |      0.0207      |         0.0205         |           0.0288            |           -0.0078           |      0.0001      |                  0.2191                   |                     0.3072                     |  0.094   |        0.205        |        0.112        |
+|  1946-55   |      0.0107      |         0.0098         |           0.0097            |           0.0033            |      0.0009      |                  0.2161                   |                     0.2148                     |  0.045   |        0.096        |        0.051        |
+| 1956-6/68  |      0.0130      |         0.0104         |           0.0208            |           0.0059            |      0.0026      |                  0.2373                   |                     0.4754                     |  0.044   |        0.133        |        0.085        |
+|  1935-40   |      0.0134      |         0.0133         |           0.0338            |           -0.0107           |      0.0001      |                  0.1172                   |                     0.2989                     |  0.113   |        0.248        |        0.117        |
+|  1941-45   |      0.0295      |         0.0292         |           0.0227            |           -0.0044           |      0.0002      |                  0.4737                   |                     0.3683                     |  0.062   |        0.140        |        0.106        |
+|  1946-50   |      0.0072      |         0.0066         |           -0.0027           |           0.0014            |      0.0007      |                  0.1219                   |                    -0.0504                     |  0.054   |        0.102        |        0.054        |
+|  1951-55   |      0.0142      |         0.0130         |           0.0221            |           0.0052            |      0.0012      |                  0.3823                   |                     0.6534                     |  0.034   |        0.089        |        0.049        |
+|  1956-60   |      0.0080      |         0.0059         |           0.0126            |           0.0080            |      0.0021      |                  0.1652                   |                     0.3539                     |  0.036   |        0.092        |        0.059        |
+| 1961-6/68  |      0.0163      |         0.0134         |           0.0262            |           0.0045            |      0.0029      |                  0.2780                   |                     0.5456                     |  0.048   |        0.154        |        0.100        |
+
+#### Panel B
+
+|            | Statistic\* |                |                         |                                |                                |               |                   |                          |                          |               |
+|:-------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| **Period** |  $s(R_f)$   | $t(\bar{R}_m)$ | $t(\overline{R_m-R_f})$ | $t(\overline{\hat{\gamma}_1})$ | $t(\overline{\hat{\gamma}_0})$ | $\rho_M(R_m)$ | $\rho_M(R_m-R_f)$ | $\rho_M(\hat{\gamma}_1)$ | $\rho_M(\hat{\gamma}_0)$ | $\rho_M(R_f)$ |
+| 1935-6/68  |   0.0012    |      4.57      |          4.17           |              2.65              |              0.14              |     0.01      |       0.01        |          -0.08           |           0.04           |     0.97      |
+|  1935-45   |   0.0002    |      2.53      |          2.51           |              1.61              |              -0.8              |     -0.06     |       -0.06       |          -0.15           |           0.03           |     0.64      |
+|  1946-55   |   0.0004    |      2.59      |          2.36           |              1.11              |              0.70              |     0.10      |       0.10        |           0.02           |          -0.22           |     0.89      |
+| 1956-6/68  |   0.0008    |      3.63      |          2.90           |              1.91              |              0.85              |     0.15      |       0.15        |           0.00           |           0.12           |     0.85      |
+|  1935-40   |   0.0002    |      0.99      |          0.99           |              1.16              |             -0.77              |     -0.12     |       -0.12       |          -0.19           |           0.11           |     0.44      |
+|  1941-45   |   0.0001    |      3.67      |          3.64           |              1.26              |             -0.32              |     0.15      |       0.15        |          -0.03           |          -0.08           |     0.72      |
+|  1946-50   |   0.0003    |      1.03      |          0.94           |             -0.21              |              0.20              |     0.10      |       0.10        |           0.06           |          -0.21           |     0.91      |
+|  1951-55   |   0.0004    |      3.22      |          2.93           |              1.94              |              0.82              |     0.00      |       0.01        |           -0.1           |          -0.21           |     0.76      |
+|  1956-60   |   0.0007    |      1.72      |          1.26           |              1.06              |              1.05              |     0.13      |       0.14        |          -0.06           |           0.10           |     0.66      |
+| 1961-6/68  |   0.0008    |      3.20      |          2.63           |              1.61              |              0.43              |     0.15      |       0.14        |           0.01           |           0.13           |     0.89      |
+
