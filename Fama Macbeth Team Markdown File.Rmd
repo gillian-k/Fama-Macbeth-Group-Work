@@ -1,0 +1,71 @@
+---
+title: "Fama Macbeth Replication"
+author: "Gillian Kimundi, Dongho Kim and Ming Fan"
+date: "2023-10-25"
+output:
+  html_document:
+  number_sections: true
+classoption: landscape  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+```
+
+```{r echo=F,include=FALSE}
+
+
+library(tidyverse)
+library(lubridate)
+library(readxl)
+library(RPostgres)
+library(RSQLite)
+library(dbplyr)
+library(furrr)
+library(slider)
+library(purrr)
+library(ggplot2)
+library(slider)
+library(readr)
+
+```
+
+```{r include=FALSE}
+#PORTFOLIO DATA AND RISK FREE RATE 
+
+################
+
+stacked_data <- read_csv("stacked_data_cross_sectional_regression.csv")
+
+################
+temp <- tempfile(fileext = ".zip")
+download.file("https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_CSV.zip",temp)
+temp1 <- unzip(temp, exdir = ".")
+
+ff_3factors_monthly <- read.csv(temp1, skip=5, header = F) 
+names(ff_3factors_monthly) <- c('dt', 'rmrf', 'smb', 'hml', 'rf')
+unlink(temp)
+unlink(temp1)
+head(ff_3factors_monthly)
+
+ff_3factors_mon <- ff_3factors_monthly |> 
+  filter(nchar(dt) == 6) |> 
+  mutate(yr = str_sub(dt,1,4), mon= str_sub(dt,-2,-1),  
+         date = make_date(year= yr, month = mon, day = 01),
+         mkt_excess = as.numeric(rmrf), smb = as.numeric(smb),
+         hml = as.numeric(hml), rf = as.numeric(rf)) |> 
+  select(c('date','mkt_excess','smb','hml','rf'))
+ff_3factors_mon <- as_tibble(ff_3factors_mon)
+
+ff_3factors_mon$date <- as.Date(ff_3factors_mon$date)
+ff_3factors_mon$date <- ceiling_date(ff_3factors_mon$date, "month") - days(1)
+ff_3factors_mon$year_month <- format(ff_3factors_mon$date, "%Y-%m")
+
+risk_free<-ff_3factors_mon|>
+  select(rf, year_month)|>
+  mutate(rf=rf/100)
+
+```
+
+
+
